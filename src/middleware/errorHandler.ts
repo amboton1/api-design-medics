@@ -27,7 +27,7 @@ export function errorHandler(
 		return;
 	}
 
-	const isProd = env.NODE_ENV === "production";
+	const isProd = env.APP_STAGE === "production";
 	res.status(500).json({
 		success: false,
 		message: "Internal server error",
