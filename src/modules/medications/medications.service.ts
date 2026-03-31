@@ -9,8 +9,6 @@ import type {
 } from "./medications.validators.ts";
 
 export async function getMedications(query: MedicationQuery) {
-	console.log(query);
-
 	const { page, limit, search, dosage_form, requires_prescription, is_active } =
 		query;
 	const offset = (page - 1) * limit;
