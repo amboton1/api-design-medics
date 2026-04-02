@@ -5,8 +5,8 @@ import env from "../../env.ts";
 import * as schema from "./schema/index.ts";
 
 const pool = remember(
-	"pg_pool",
-	() => new Pool({ connectionString: env.DATABASE_URL }),
+  "pg_pool",
+  () => new Pool({ connectionString: env.DATABASE_URL }),
 );
 
 export const db = drizzle(pool, { schema });
