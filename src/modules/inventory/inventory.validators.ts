@@ -48,8 +48,8 @@ export const insertTransactionSchema = z.object({
     .number()
     .int()
     .refine((n) => n !== 0, "quantity_delta must be nonzero"),
-  batch_id: z.string().uuid().optional(),
-  reference_id: z.string().uuid().optional(),
+  batch_id: z.uuid().optional(),
+  reference_id: z.uuid().optional(),
   reference_type: z.string().max(50).optional(),
   notes: z.string().optional(),
 });

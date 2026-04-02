@@ -1,7 +1,7 @@
 import {
   createInsertSchema,
-  createUpdateSchema,
   createSelectSchema,
+  createUpdateSchema,
 } from "drizzle-zod";
 import { z } from "zod";
 import { medications } from "../../db/schema/index.ts";
@@ -23,7 +23,7 @@ export const updateMedicationSchema = createUpdateSchema(medications, {
 }).omit({ id: true, created_at: true, updated_at: true });
 
 export const medicationIdSchema = z.object({
-  id: z.string().uuid("Invalid medication ID"),
+  id: z.uuid("Invalid medication ID"),
 });
 
 export const medicationQuerySchema = z.object({
