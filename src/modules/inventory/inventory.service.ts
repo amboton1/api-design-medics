@@ -1,20 +1,20 @@
-import { eq, and, lte, sql, lt, type SQL } from "drizzle-orm";
+import { and, eq, lt, lte, type SQL, sql } from "drizzle-orm";
 import { db } from "../../db/index.ts";
 import {
   inventory,
   inventory_batches,
-  stock_transactions,
   medications,
+  stock_transactions,
 } from "../../db/schema/index.ts";
 import { AppError } from "../../lib/AppError.ts";
 import type {
-  InsertInventory,
-  UpdateInventory,
+  BatchQuery,
   InsertBatch,
+  InsertInventory,
   InsertTransaction,
   InventoryQuery,
-  BatchQuery,
   TransactionQuery,
+  UpdateInventory,
 } from "./inventory.validators.ts";
 
 export async function getInventory(query: InventoryQuery) {

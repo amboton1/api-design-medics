@@ -1,11 +1,11 @@
-import { eq, ilike, and, sql, type SQL } from "drizzle-orm";
+import { and, eq, ilike, type SQL, sql } from "drizzle-orm";
 import { db } from "../../db/index.ts";
 import { medications } from "../../db/schema/index.ts";
 import { AppError } from "../../lib/AppError.ts";
 import type {
   InsertMedication,
-  UpdateMedication,
   MedicationQuery,
+  UpdateMedication,
 } from "./medications.validators.ts";
 
 export async function getMedications(query: MedicationQuery) {

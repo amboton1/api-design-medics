@@ -1,11 +1,11 @@
-import { eq, ilike, and, sql, type SQL } from "drizzle-orm";
+import { and, eq, ilike, type SQL, sql } from "drizzle-orm";
 import { db } from "../../db/index.ts";
-import { prescriptions, prescription_items } from "../../db/schema/index.ts";
+import { prescription_items, prescriptions } from "../../db/schema/index.ts";
 import { AppError } from "../../lib/AppError.ts";
 import type {
   InsertPrescription,
-  UpdatePrescription,
   PrescriptionQuery,
+  UpdatePrescription,
   UpdatePrescriptionStatus,
 } from "./prescriptions.validators.ts";
 

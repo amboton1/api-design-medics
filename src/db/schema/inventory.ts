@@ -1,12 +1,12 @@
 import {
-  pgTable,
-  uuid,
   integer,
-  varchar,
-  timestamp,
   numeric,
   pgEnum,
+  pgTable,
   text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 import { medications } from "./medications.ts";
 

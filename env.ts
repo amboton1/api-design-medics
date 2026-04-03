@@ -20,7 +20,7 @@ const envSchema = z.object({
     .default("http://localhost:3000,http://localhost:5173"),
   RATE_LIMIT_WINDOW_MS: z.coerce.number().positive().default(900000),
   RATE_LIMIT_MAX_REQUESTS: z.coerce.number().positive().default(100),
-  BCRYPT_SALT_ROUNDS: z.coerce.number().min(10).max(20).default(12),
+  BCRYPT_ROUNDS: z.coerce.number().min(10).max(20).default(12),
   LOG_LEVEL: z
     .enum(["fatal", "error", "warn", "info", "debug", "trace"])
     .default("info"),

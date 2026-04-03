@@ -1,9 +1,9 @@
+import cors from "cors";
 import express from "express";
 import helmet from "helmet";
-import cors from "cors";
 import morgan from "morgan";
-import { router } from "./router.ts";
 import { errorHandler } from "./middleware/errorHandler.ts";
+import { router } from "./router.ts";
 
 const app = express();
 

@@ -1,12 +1,12 @@
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
   boolean,
   numeric,
   pgEnum,
+  pgTable,
+  text,
   timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 
 export const dosageFormEnum = pgEnum("dosage_form", [

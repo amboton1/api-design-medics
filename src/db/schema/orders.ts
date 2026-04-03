@@ -1,13 +1,13 @@
 import {
-  pgTable,
-  uuid,
-  varchar,
-  text,
-  timestamp,
+  boolean,
   integer,
   numeric,
-  boolean,
   pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 import { medications } from "./medications.ts";
 

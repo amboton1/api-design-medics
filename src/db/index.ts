@@ -1,6 +1,6 @@
+import { remember } from "@epic-web/remember";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { remember } from "@epic-web/remember";
 import env from "../../env.ts";
 import * as schema from "./schema/index.ts";
 

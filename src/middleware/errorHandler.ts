@@ -1,7 +1,7 @@
-import type { Request, Response, NextFunction } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
-import { AppError } from "../lib/AppError.ts";
 import env from "../../env.ts";
+import { AppError } from "../lib/AppError.ts";
 
 type PostgresError = Error & { code?: string; detail?: string };
 

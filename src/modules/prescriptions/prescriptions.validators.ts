@@ -1,6 +1,6 @@
-import { z } from "zod";
 import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
-import { prescriptions, prescription_items } from "../../db/schema/index.ts";
+import { z } from "zod";
+import { prescription_items, prescriptions } from "../../db/schema/index.ts";
 
 export const insertPrescriptionItemSchema = createInsertSchema(
   prescription_items,
