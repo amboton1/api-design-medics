@@ -1,17 +1,25 @@
 # API Design Medics
 
-A REST API for managing medications, prescriptions, inventory, and pharmacy orders. Built as a learning project to explore Node.js backend development.
+A production-deployed REST API simulating a pharmaceutical management system — built to practice real-world backend API design, role-based authentication, and relational data modeling.
 
-## What it does
+**Live URL:** https://api-design-medics.onrender.com
 
-This API simulates a pharmaceutical management system where:
+## About the project
 
-- **Patients** can track their active medications
-- **Doctors** can write prescriptions
-- **Pharmacists** can manage inventory and fulfill orders
-- **Admins** can manage all resources
+The Medics API covers the full lifecycle of a pharmacy ecosystem: from user registration with role-based access, through prescription management between doctors and pharmacists, to inventory tracking with batch-level detail and supplier order management.
 
-The main focus is a clean, well-structured Express API with a real PostgreSQL database.
+The focus was on building a clean, well-structured Express API with proper authentication, input validation, centralized error handling, and automated testing — not just a basic CRUD app.
+
+Key things implemented:
+
+- **Role-based access control (RBAC)** — four roles (patient, doctor, pharmacist, admin) each with different permissions enforced at the route level
+- **Prescriptions workflow** — doctors create prescriptions, pharmacists update fulfillment status, patients view their own
+- **Inventory with batch tracking** — stock management including lot numbers, expiration dates, and a full transaction audit trail
+- **Supplier orders** — order lifecycle management with line items and pharmacy records
+- **Pagination and filtering** — query params for limit/offset and field-level filtering across list endpoints
+- **JWT authentication** — stateless auth with bcrypt password hashing
+- **Zod validation** — all request bodies and query params validated with reusable middleware
+- **Integration tests** — endpoint tests with Vitest and Supertest against a real database
 
 ## Tech stack
 
@@ -81,21 +89,67 @@ The server runs on `http://localhost:3000` by default.
 
 All routes are prefixed with `/api/v1`.
 
+### Auth
+```
+POST   /auth/register
+POST   /auth/login
+```
+
+### Users (admin only)
+```
+GET    /auth/users
+GET    /auth/users/:id
+PUT    /auth/users/:id
+DELETE /auth/users/:id
+```
+
 ### Medications
-
 ```
-GET    /medications          List all (supports pagination & filtering)
-GET    /medications/:id      Get one by ID
-POST   /medications          Create a new medication
-PATCH  /medications/:id      Update a medication
-DELETE /medications/:id      Delete a medication
+GET    /medications          List all (pagination & filtering)
+GET    /medications/:id
+POST   /medications          (admin)
+PATCH  /medications/:id      (admin)
+DELETE /medications/:id      (admin)
 ```
 
-### Auth (in progress)
-
+### Prescriptions
 ```
-POST   /register
-POST   /login
+GET    /prescriptions
+GET    /prescriptions/:id
+POST   /prescriptions        (doctor, admin)
+PATCH  /prescriptions/:id
+PATCH  /prescriptions/:id/status   (pharmacist, admin)
+DELETE /prescriptions/:id    (admin)
+```
+
+### Inventory
+```
+GET    /inventory
+GET    /inventory/:medication_id
+POST   /inventory
+PATCH  /inventory/:medication_id
+GET    /inventory/:medication_id/batches
+POST   /inventory/:medication_id/batches
+GET    /inventory/:medication_id/transactions
+POST   /inventory/:medication_id/transactions
+```
+
+### Orders & Pharmacies
+```
+GET    /orders/pharmacies
+POST   /orders/pharmacies    (admin)
+PATCH  /orders/pharmacies/:id
+DELETE /orders/pharmacies/:id
+
+GET    /orders
+GET    /orders/:id
+POST   /orders               (admin)
+PATCH  /orders/:id           (admin)
+DELETE /orders/:id           (admin)
+GET    /orders/:id/items
+POST   /orders/:id/items
+PATCH  /orders/:id/items/:itemId
+DELETE /orders/:id/items/:itemId
 ```
 
 ## Environment variables
