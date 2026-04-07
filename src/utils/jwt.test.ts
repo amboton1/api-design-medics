@@ -1,4 +1,5 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+import { generateToken, type JwtPayload, verifyToken } from "./jwt.ts";
 
 const TEST_SECRET = "test-secret-key-minimum-32-characters-long!!";
 
@@ -12,8 +13,6 @@ vi.mock("../../env.ts", () => ({
     JWT_EXPIRES_IN: "1h",
   },
 }));
-
-import { generateToken, verifyToken, type JwtPayload } from "./jwt.ts";
 
 const testPayload: JwtPayload = {
   id: "11111111-1111-1111-1111-111111111111",

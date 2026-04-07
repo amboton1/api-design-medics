@@ -68,7 +68,9 @@ describe("getMedicationById", () => {
   it("throws AppError 404 when not found", async () => {
     mockDb.select = vi.fn().mockReturnValue(makeSelectChain([]));
 
-    await expect(getMedicationById("non-existent-id")).rejects.toThrow(AppError);
+    await expect(getMedicationById("non-existent-id")).rejects.toThrow(
+      AppError,
+    );
     await expect(getMedicationById("non-existent-id")).rejects.toMatchObject({
       statusCode: 404,
       message: "Medication not found",
@@ -138,7 +140,9 @@ describe("updateMedication", () => {
     const mutation = makeMutationChain([updated]);
     mockDb.update = vi.fn().mockReturnValue(mutation);
 
-    const result = await updateMedication(mockMedication.id, { name: "Ibuprofen 400mg" });
+    const result = await updateMedication(mockMedication.id, {
+      name: "Ibuprofen 400mg",
+    });
     expect(result).toEqual(updated);
   });
 
@@ -162,9 +166,9 @@ describe("deleteMedication", () => {
     expect(result.is_active).toBe(false);
 
     // Verify is_active: false was passed to .set()
-    expect(vi.mocked(mutation.set as ReturnType<typeof vi.fn>)).toHaveBeenCalledWith(
-      expect.objectContaining({ is_active: false }),
-    );
+    expect(
+      vi.mocked(mutation.set as ReturnType<typeof vi.fn>),
+    ).toHaveBeenCalledWith(expect.objectContaining({ is_active: false }));
   });
 
   it("throws 404 when medication does not exist", async () => {

@@ -1,5 +1,4 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { AppError } from "../../lib/AppError.ts";
 import {
   createTransaction,
   getInventoryByMedicationId,
@@ -49,7 +48,9 @@ describe("getInventoryByMedicationId", () => {
   it("returns the inventory record when found", async () => {
     mockDb.select = vi.fn().mockReturnValue(makeSelectChain([mockInventory]));
 
-    const result = await getInventoryByMedicationId(mockInventory.medication_id);
+    const result = await getInventoryByMedicationId(
+      mockInventory.medication_id,
+    );
     expect(result).toEqual(mockInventory);
   });
 
@@ -70,7 +71,9 @@ describe("createTransaction", () => {
     // quantity_on_hand = 100, delta = -150 → quantity_after = -50 (invalid)
     mockDb.select = vi
       .fn()
-      .mockReturnValue(makeSelectChain([{ ...mockInventory, quantity_on_hand: 100 }]));
+      .mockReturnValue(
+        makeSelectChain([{ ...mockInventory, quantity_on_hand: 100 }]),
+      );
 
     await expect(
       createTransaction(mockInventory.medication_id, {
@@ -87,7 +90,9 @@ describe("createTransaction", () => {
   it("throws AppError 400 when stock is zero and delta is negative", async () => {
     mockDb.select = vi
       .fn()
-      .mockReturnValue(makeSelectChain([{ ...mockInventory, quantity_on_hand: 0 }]));
+      .mockReturnValue(
+        makeSelectChain([{ ...mockInventory, quantity_on_hand: 0 }]),
+      );
 
     await expect(
       createTransaction(mockInventory.medication_id, {
@@ -114,7 +119,9 @@ describe("createTransaction", () => {
         created_at: new Date(),
       },
     ]);
-    const mockTxUpdate = makeMutationChain([{ ...mockInventory, quantity_on_hand: 0 }]);
+    const mockTxUpdate = makeMutationChain([
+      { ...mockInventory, quantity_on_hand: 0 },
+    ]);
 
     const txMock = {
       insert: vi.fn().mockReturnValue(mockTxInsert),
@@ -123,8 +130,12 @@ describe("createTransaction", () => {
 
     mockDb.select = vi
       .fn()
-      .mockReturnValue(makeSelectChain([{ ...mockInventory, quantity_on_hand: 50 }]));
-    mockDb.transaction = vi.fn().mockImplementation(async (fn: Function) => fn(txMock));
+      .mockReturnValue(
+        makeSelectChain([{ ...mockInventory, quantity_on_hand: 50 }]),
+      );
+    mockDb.transaction = vi
+      .fn()
+      .mockImplementation(async (fn: Function) => fn(txMock));
 
     const result = await createTransaction(mockInventory.medication_id, {
       quantity_delta: -50,
@@ -149,7 +160,9 @@ describe("createTransaction", () => {
         created_at: new Date(),
       },
     ]);
-    const mockTxUpdate = makeMutationChain([{ ...mockInventory, quantity_on_hand: 200 }]);
+    const mockTxUpdate = makeMutationChain([
+      { ...mockInventory, quantity_on_hand: 200 },
+    ]);
 
     const txMock = {
       insert: vi.fn().mockReturnValue(mockTxInsert),
@@ -158,8 +171,12 @@ describe("createTransaction", () => {
 
     mockDb.select = vi
       .fn()
-      .mockReturnValue(makeSelectChain([{ ...mockInventory, quantity_on_hand: 100 }]));
-    mockDb.transaction = vi.fn().mockImplementation(async (fn: Function) => fn(txMock));
+      .mockReturnValue(
+        makeSelectChain([{ ...mockInventory, quantity_on_hand: 100 }]),
+      );
+    mockDb.transaction = vi
+      .fn()
+      .mockImplementation(async (fn: Function) => fn(txMock));
 
     const result = await createTransaction(mockInventory.medication_id, {
       quantity_delta: 100,

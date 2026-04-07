@@ -22,7 +22,10 @@ describe("insertMedicationSchema", () => {
   });
 
   it("rejects name shorter than 2 characters", () => {
-    const result = insertMedicationSchema.safeParse({ ...validPayload, name: "X" });
+    const result = insertMedicationSchema.safeParse({
+      ...validPayload,
+      name: "X",
+    });
     expect(result.success).toBe(false);
   });
 
@@ -111,10 +114,14 @@ describe("medicationQuerySchema", () => {
   });
 
   it("transforms requires_prescription string to boolean", () => {
-    const result = medicationQuerySchema.parse({ requires_prescription: "true" });
+    const result = medicationQuerySchema.parse({
+      requires_prescription: "true",
+    });
     expect(result.requires_prescription).toBe(true);
 
-    const result2 = medicationQuerySchema.parse({ requires_prescription: "false" });
+    const result2 = medicationQuerySchema.parse({
+      requires_prescription: "false",
+    });
     expect(result2.requires_prescription).toBe(false);
   });
 

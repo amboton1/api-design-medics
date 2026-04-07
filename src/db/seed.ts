@@ -501,7 +501,7 @@ async function seed() {
   const PASSWORD_HASH =
     "$2b$12$K8Zg0yAFJQkR3V1wLpN2EuQe5mX7tYsD4hC9jB1nM6oP0rW3iF8aG";
 
-  const [user1, user2, user3] = await db
+  const [user1, user2, _user3] = await db
     .insert(schema.users)
     .values([
       {
