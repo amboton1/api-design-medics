@@ -186,3 +186,6 @@ npm run test:watch    # Watch mode
 - Centralised error handling with a custom `AppError` class
 - Protecting routes with JWT middleware and role-based access control
 - Setting up PostgreSQL locally with Docker Compose
+
+
+<a href="https://www.buymeacoffee.com/botarius" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
